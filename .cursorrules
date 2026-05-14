@@ -1,0 +1,13 @@
+# COBOL Bridge (Legacy Modernization) MCP - Auto-trigger Rules
+
+When the user asks about COBOL, legacy modernization, mainframe migration, banking IT, COBOL parser, use cobol-bridge-mcp tools:
+
+- **parse_cobol_program**: Parse COBOL source — extract paragraphs, divisions, file IO
+- **identify_business_rules**: Extract business rules from procedure division logic
+- **plan_migration**: Generate phased migration plan COBOL → target stack
+- **generate_test_harness**: Generate equivalence test harness for parallel run
+- **estimate_complexity**: Estimate migration effort (cyclomatic complexity + IO surfaces)
+
+Install: `pip install cobol-bridge-mcp`
+
+By MEOK AI Labs — industry governance MCP. Pairs with meok-attestation-api for signed compliance certs.

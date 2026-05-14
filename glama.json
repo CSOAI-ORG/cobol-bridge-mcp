@@ -1,0 +1,38 @@
+{
+  "name": "cobol-bridge-mcp",
+  "title": "COBOL Bridge (Legacy Modernization)",
+  "description": "AI-assisted COBOL \u2192 modern stack bridge. Banks, insurers, gov mainframes.",
+  "homepage": "https://meok.ai",
+  "repository": "https://github.com/meok-ai-labs/cobol-bridge-mcp",
+  "license": "MIT",
+  "author": "MEOK AI Labs",
+  "tags": [
+    "modernization",
+    "mcp",
+    "governance"
+  ],
+  "category": "modernization",
+  "icon": "https://meok.ai/favicon.ico",
+  "pricing": {
+    "free": {
+      "calls_per_day": 10,
+      "description": "Free tier, no API key"
+    },
+    "pro": {
+      "monthly_gbp": 79,
+      "description": "Unlimited + signed attestations",
+      "checkout_url": "https://buy.stripe.com/14A4gB3K4eUWgYR56o8k836"
+    },
+    "enterprise": {
+      "monthly_gbp": 1499,
+      "description": "White-label + on-premise",
+      "contact": "hello@meok.ai"
+    }
+  },
+  "install": {
+    "pip": "pip install cobol-bridge-mcp",
+    "npm_setup": "npx meok-setup --pack governance"
+  },
+  "verify_url": "https://meok-attestation-api.vercel.app/verify",
+  "support": "hello@meok.ai"
+}
