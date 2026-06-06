@@ -4,7 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "cobol-bridge-mcp"
-version = "1.1.0"
+readme = "README.md"
+version = "1.1.4"
 description = "AI-assisted COBOL → modern stack bridge. Parse COBOL programs, map to Python/Java/Go, generate test harnesses, plan migration. For banks, insurers, and government legacy mainframes."
 license = {file = "LICENSE"}
 requires-python = ">=3.10"
@@ -20,7 +21,7 @@ dependencies = ["mcp>=1.0.0"]
 
 [project.urls]
 Homepage = "https://meok.ai"
-Repository = "https://github.com/meok-ai-labs/cobol-bridge-mcp"
+Repository = "https://github.com/CSOAI-ORG/cobol-bridge-mcp"
 
 [tool.hatch.build.targets.wheel]
 packages = ["."]

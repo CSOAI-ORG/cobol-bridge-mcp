@@ -1,0 +1,29 @@
+name: cobol-bridge-mcp
+description: 'MCP server: cobol-bridge-mcp'
+version: 1.0.5
+author: MEOK AI Labs
+homepage: https://safetyof.ai
+repository: https://github.com/MEOK-AI-Labs/cobol-bridge-mcp
+license: MIT
+categories:
+- compliance
+- governance
+tools:
+- name: parse_cobol_program
+  description: Parse a COBOL source file. Extract divisions, paragraphs, file IO,
+    SQL/CICS, copybooks, complexity.
+- name: identify_business_rules
+  description: Extract IF/EVALUATE business rules from COBOL PROCEDURE DIVISION.
+- name: estimate_migration_complexity
+  description: Estimate migration effort to target stack (python/java/go/rust/dotnet).
+- name: plan_migration_phases
+  description: Generate a 4-phase migration plan based on LOC + complexity.
+- name: generate_test_harness
+  description: Generate skeleton test harness for parallel-run equivalence testing.
+build:
+  type: python
+  entrypoint: server.py
+  dependencies:
+  - mcp>=1.0.0
+runtime:
+  python: '>=3.10'

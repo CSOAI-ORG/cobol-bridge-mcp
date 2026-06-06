@@ -1,0 +1,28 @@
+{
+  "name": "cobol-bridge-mcp",
+  "title": "Cobol Bridge Mcp",
+  "description": "AI-assisted COBOL \u2192 modern stack bridge. Parse COBOL programs, map to Python/Java/Go, generate test harnesses, plan migration. For banks, insurers, and government legacy mainframes.",
+  "version": "1.1.4",
+  "homepage": "https://meok.ai",
+  "license": "MIT",
+  "transport": {
+    "type": "stdio"
+  },
+  "tools": [
+    {
+      "name": "parse_cobol_program"
+    },
+    {
+      "name": "identify_business_rules"
+    },
+    {
+      "name": "estimate_migration_complexity"
+    },
+    {
+      "name": "plan_migration_phases"
+    },
+    {
+      "name": "generate_test_harness"
+    }
+  ]
+}
