@@ -1,0 +1,23 @@
+{
+  "acpVersion": "0.1",
+  "agent": {
+    "name": "cobol-bridge-mcp",
+    "description": "AI-assisted COBOL \u2192 modern stack bridge. Parse COBOL programs, map to Python/Java/Go, generate t...",
+    "version": "1.1.4",
+    "provider": "MEOK AI Labs",
+    "interfaces": [
+      {
+        "type": "mcp",
+        "transport": "stdio",
+        "package": "cobol-bridge-mcp"
+      }
+    ],
+    "capabilities": [
+      "parse_cobol_program",
+      "identify_business_rules",
+      "estimate_migration_complexity",
+      "plan_migration_phases",
+      "generate_test_harness"
+    ]
+  }
+}
