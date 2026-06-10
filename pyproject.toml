@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "cobol-bridge-mcp"
 readme = "README.md"
-version = "1.1.4"
+version = "1.1.7"
 description = "AI-assisted COBOL → modern stack bridge. Parse COBOL programs, map to Python/Java/Go, generate test harnesses, plan migration. For banks, insurers, and government legacy mainframes."
 license = {file = "LICENSE"}
 requires-python = ">=3.10"
