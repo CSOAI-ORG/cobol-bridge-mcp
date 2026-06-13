@@ -2,10 +2,11 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.CSOAI-ORG/cobol-bridge-mcp",
   "version": "1.1.9",
-  "description": "AI-assisted COBOL → modern stack bridge. Parse COBOL programs, map to Python/Java/Go, generate t...",
+  "description": "AI-assisted COBOL \u2192 modern stack bridge. Parse COBOL programs, map to Python/Java/Go, generate t...",
   "repository": {
     "url": "https://github.com/CSOAI-ORG/cobol-bridge-mcp",
-    "source": "github"
+    "source": "github",
+    "id": "1238470036"
   },
   "packages": [
     {
