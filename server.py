@@ -22,6 +22,8 @@ from collections import defaultdict
 import os as _os
 import sys
 import os
+import urllib.request as _meter_urlreq
+import urllib.error as _meter_urlerr
 
 # --- Pydantic Models ---
 
@@ -142,9 +144,9 @@ except ImportError:
             return True, "OK", "pro"
         return True, "OK, Pro at https://www.csoai.org/checkout", "free"
 
-FREE_DAILY_LIMIT = 10
+FREE_DAILY_LIMIT = 50
 _usage = defaultdict(list)
-STRIPE_PRO = "https://buy.stripe.com/5kQ6oJ0xS3ce8sl7ew8k91j"
+STRIPE_PRO = "https://buy.stripe.com/aFa7sNcgAdQS0ZT1Uc8k91t"
 
 def _rl(tier="free"):
     if tier in ("pro", "professional", "enterprise"): return None
@@ -159,6 +161,26 @@ def _rl(tier="free"):
 # --- MCP Setup ---
 
 mcp = FastMCP("COBOL Bridge", instructions="AI-assisted COBOL → modern stack bridge. Parse, extract, and plan migrations.")
+
+def _server_meter_check(api_key: str = "") -> dict:
+    """Calls the live /verify endpoint for server-side metering. Returns the JSON dict.
+    Fail-open: if /verify is unreachable or KV isn't configured, returns allowed=True
+    (so the local rate-limit in _check_rate_limit remains the safety net)."""
+    try:
+        data = json.dumps({"api_key": api_key, "tool": ""}).encode()
+        req = _meter_urlreq.Request(_METER_URL, data=data,
+            headers={"Content-Type": "application/json"}, method="POST")
+        with _meter_urlreq.urlopen(req, timeout=2.5) as r:
+            d = json.loads(r.read())
+            if isinstance(d, dict) and "allowed" in d:
+                return d
+    except Exception:
+        pass
+    return {"allowed": True, "tier": "anonymous", "remaining": 200, "upgrade_url": "https://meok.ai/pricing"}
+
+
+_METER_URL = "https://proofof.ai/verify"
+
 
 @mcp.tool()
 def parse_cobol_program(source_code: str, api_key: str = "") -> ParserResult:
@@ -277,14 +299,18 @@ def generate_test_harness(source_code: str = "", target_stack: str = "python", a
     harness = '''import subprocess, json, hashlib\nfrom pathlib import Path\n\ndef run_cobol(input_file):\n    result = subprocess.run(["./cobol_binary", input_file], capture_output=True, text=True, timeout=300)\n    return result.stdout\n\ndef run_modern(input_file):\n    from modern_app import main as modern_main\n    return modern_main(input_file)\n\ndef diff_output(a, b):\n    return {"equal": hashlib.sha256(a.encode()).hexdigest() == hashlib.sha256(b.encode()).hexdigest()}\n\ndef run_parallel_test(test_cases_dir):\n    results = []\n    for tc in Path(test_cases_dir).glob("*.dat"):\n        cobol_out = run_cobol(str(tc))\n        modern_out = run_modern(str(tc))\n        results.append({"input": tc.name, **diff_output(cobol_out, modern_out)})\n    return results\n\nif __name__ == "__main__":\n    r = run_parallel_test("test_inputs/")\n    print(json.dumps(r, indent=2))'''
     return TestHarnessResponse(target_stack=target_stack, harness_code=harness, tier=tier)
 
-if __name__ == "__main__":
+def main():
     mcp.run()
+
+
+if __name__ == "__main__":
+    main()
 
 
 # ── MEOK monetization layer (Stripe upgrade · PAYG · pricing) ──────────
 # Free tier is zero-config. Upgrade to Pro (unlimited) or pay-as-you-go per call.
 import os as _meok_os
-MEOK_STRIPE_UPGRADE = "https://buy.stripe.com/5kQ6oJ0xS3ce8sl7ew8k91j"  # Pro (unlimited)
+MEOK_STRIPE_UPGRADE = "https://buy.stripe.com/aFa7sNcgAdQS0ZT1Uc8k91t"  # Pro (unlimited)
 MEOK_PAYG_KEY = _meok_os.environ.get("MEOK_PAYG_KEY", "")  # set to enable PAYG (x402 / ~GBP0.05 per call)
 MEOK_PRICING = "https://meok.ai/pricing"
 
