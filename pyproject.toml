@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "cobol-bridge-mcp"
 readme = "README.md"
-version = "1.1.9"
+version = "1.1.10"
 description = "AI-assisted COBOL → modern stack bridge. Parse COBOL programs, map to Python/Java/Go, generate test harnesses, plan migration. For banks, insurers, and government legacy mainframes."
 license = {file = "LICENSE"}
 requires-python = ">=3.10"
@@ -29,3 +29,22 @@ only-include = ["server.py"]
 
 [project.scripts]
 cobol-bridge-mcp = "server:main"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "W", "I", "N"]
+ignore = ["E501"]
+
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_Configs = true
+disallow_untyped_defs = true
+
