@@ -5,3 +5,8 @@ dist/
 
 # Auto-added during alignment sweep
 *.pyc
+
+*_sigil.log
+bridge_sigil.log
+scoreboard_sigil.log
+__pycache__/
