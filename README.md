@@ -1,121 +1,27 @@
-[![MCP Scorecard: 86/100](https://img.shields.io/badge/proofof.ai-86%2F100-5b21b6)](https://proofof.ai/scorecard/cobol-bridge-mcp.html)
+# COBOL Bridge MCP — read-only sidecar (SPEC)
 
-# Cobol Bridge MCP
+**SPEC, not a live product.** See [`SPEC.md`](SPEC.md).
 
-[![MEOK AI Labs](https://img.shields.io/badge/MEOK-AI%20Labs-667eea)](https://meok.ai)
-[![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Compliant-22c55e)](https://councilof.ai)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![PyPI](https://img.shields.io/badge/PyPI-Install-3775a9)](https://pypi.org/project/cobol_bridge_mcp/)
+- Read-only sidecar. Never writes core / ledger / CICS.
+- `cobolbridge.ai` HTTP **522** sits. This README does not attach the domain.
+- No Starter / Pro / Enterprise pricing on this measurement surface.
+- Not certified. Not partnered. Not a second GSPC board.
+- Living board: `GET https://councilof.ai/api/gspc` (22 axis · 15 measured · 7 empty).
+
 mcp-name: io.github.CSOAI-ORG/cobol-bridge-mcp
 
-# COBOL Bridge (Legacy Modernization) MCP
-
-
-> ## Buy Starter — £29/mo
-> **Signed attestations + unlimited audits + email support.**
-> 👉 **[Subscribe at meok.ai](https://buy.stripe.com/aFa7sNcgAdQS0ZT1Uc8k91t)** — instant HMAC signing key + Stripe-managed billing.
->
-> Free tier remains MIT-licensed and zero-config. Upgrade only when you need signed compliance artefacts for audit.
-
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/cobol-bridge-mcp)](https://pypi.org/project/cobol-bridge-mcp/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![MEOK AI Labs](https://img.shields.io/badge/MEOK_AI_Labs-governance--mcp-purple)](https://meok.ai)
 
-> COBOL → modern stack migration MCP
+MIT parser: COBOL source text in, heuristic metrics out. Optional MCP next to a workstation. Never an inside-bank install.
 
-COBOL → modern stack migration MCP. Real parser, cyclomatic complexity, phase planner. MIT
-
----
-
-## 🚀 Quick Start
+## Install (local / stdio)
 
 ```bash
-# Install via pip
-pip install cobol_bridge_mcp
-
-# Or install via Smithery
-npx -y @smithery/cli@latest install cobol-bridge-mcp --client claude
+pip install cobol-bridge-mcp
+# or
+uvx cobol-bridge-mcp
 ```
-
-## ✨ Features
-
-- COBOL-to-Python transpilation
-- COBOL-to-Java transpilation
-- COBOL-to-Go transpilation
-- API bridge generation
-- Business rules extraction
-
-## 📖 Documentation
-
-- [Full Documentation](https://docs.meok.ai/cobol-bridge-mcp)
-- [API Reference](https://api.meok.ai)
-- [EU AI Act Compliance Guide](https://councilof.ai/compliance)
-
-## 🛡️ Compliance
-
-This MCP server is built with **EU AI Act compliance** built-in:
-- **Free**: 10 calls/day. No API key required.
-- **Pro** £79/mo: unlimited + signed attestations. [Subscribe](https://buy.stripe.com/aFa7sNcgAdQS0ZT1Uc8k91t)
-- **Enterprise** £1,499/mo: white-label + on-premise + SLA. hello@meok.ai
-
-- ✅ Article 9 — Risk Management System
-- ✅ Article 13 — Transparency & Instructions for Use
-- ✅ Article 15 — Bias Detection & Testing
-- ✅ Article 26 — FRIA Support (where applicable)
-- ✅ Article 50 — AI Content Watermarking (where applicable)
-
-Need help getting compliant? **[Book a free 15-min diagnostic →](https://cal.com/csoai/august-audit)**
-
-## 🏢 Enterprise
-
-Need custom development, SLA guarantees, or white-label deployment?
-
-- **Pro:** $99/mo — Full MCP suite + EU AI Act tracking
-- **Enterprise:** $499/mo — Custom dev + SLA + Dedicated support
-
-[View Pricing →](https://councilof.ai/pricing) | [Contact Sales →](mailto:sales@csoai.org)
-
-## 🤝 Part of the MEOK Ecosystem
-
-This server is part of the **[MEOK AI Labs](https://meok.ai)** ecosystem — 300+ MCP servers for sovereign AI governance.
-
-| Domain | Purpose |
-|--------|---------|
-| [councilof.ai](https://councilof.ai) | EU AI Act compliance marketplace |
-| [safetyof.ai](https://safetyof.ai) | AI safety & monitoring |
-| [meok.ai](https://meok.ai) | Sovereign AI platform |
-| [cobolbridge.ai](https://cobolbridge.ai) | Legacy modernization |
-
-## 📜 License
-
-MIT © [CSOAI-ORG](https://github.com/CSOAI-ORG)
-
----
-
-<p align="center">
-  <sub>Built with 💜 by <a href="https://meok.ai">MEOK AI Labs</a> · UK Companies House 16939677</sub>
-</p>
-<!-- mcp-name: io.github.CSOAI-ORG/cobol-bridge-mcp -->
-
-<!-- BUY-LADDER:START -->
-
-## 💸 Try MEOK in 30 seconds — instant buy ladder
-
-| Tier | Price | What you get | Stripe |
-|---|---|---|---|
-| Smoke test | **£1** | Signed sample MCP-Hardening report + Article 50 PDF | <https://buy.stripe.com/aFa7sNcgAdQS0ZT1Uc8k91t> |
-| Quick Kit | **£9** | EU AI Act Article 50 implementation guide (C2PA + EU-Icon) | <https://buy.stripe.com/aFa7sNcgAdQS0ZT1Uc8k91t> |
-| Founder Call | **£29** | 30-min 1-on-1 with the founder | <https://buy.stripe.com/aFa7sNcgAdQS0ZT1Uc8k91t> |
-
-> Refundable. UK Stripe — VAT-clean. Builds on the 81-MCP MEOK fleet.
-> Verify any signed report at <https://meok.ai/verify>.
-
-<!-- BUY-LADDER:END -->
-
-
-## Configuration
-
-Add to your `claude_desktop_config.json` (Claude Desktop) or your MCP client config:
 
 ```json
 {
@@ -128,11 +34,20 @@ Add to your `claude_desktop_config.json` (Claude Desktop) or your MCP client con
 }
 ```
 
-Or: `pip install cobol-bridge-mcp` then run the `cobol-bridge-mcp` command (stdio transport).
+Tools (read the source you already hold; they do not write production):
 
-## Examples
+- `parse_cobol_program`
+- `identify_business_rules`
+- `estimate_migration_complexity`
+- `plan_migration_phases`
+- `generate_test_harness`
 
-Once configured, ask your assistant, for example:
-- "Use `parse_cobol_program` to …"
-- "Use `identify_business_rules` to …"
-- "Use `estimate_migration_complexity` to …"
+## Contract
+
+Full contract: [`SPEC.md`](SPEC.md). Measurement, never certification. Do not stamp MEASURED. Do not claim 17 banks are clients.
+
+## License
+
+MIT © [CSOAI-ORG](https://github.com/CSOAI-ORG) / CSOAI Ltd (GB, Companies House 16939677)
+
+<!-- mcp-name: io.github.CSOAI-ORG/cobol-bridge-mcp -->
