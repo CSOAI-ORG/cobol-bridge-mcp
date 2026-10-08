@@ -12,7 +12,7 @@ Install: pip install cobol-bridge-mcp
 Domain: cobolbridge.ai
 """
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer as FastMCP  # mcp 2.x: FastMCP renamed MCPServer
 from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
 import json
@@ -314,6 +314,37 @@ def generate_test_harness(source_code: str = "", target_stack: str = "python", a
     if not allowed: return {"error": msg}
     harness = '''import subprocess, json, hashlib\nfrom pathlib import Path\n\ndef run_cobol(input_file):\n    result = subprocess.run(["./cobol_binary", input_file], capture_output=True, text=True, timeout=300)\n    return result.stdout\n\ndef run_modern(input_file):\n    from modern_app import main as modern_main\n    return modern_main(input_file)\n\ndef diff_output(a, b):\n    return {"equal": hashlib.sha256(a.encode()).hexdigest() == hashlib.sha256(b.encode()).hexdigest()}\n\ndef run_parallel_test(test_cases_dir):\n    results = []\n    for tc in Path(test_cases_dir).glob("*.dat"):\n        cobol_out = run_cobol(str(tc))\n        modern_out = run_modern(str(tc))\n        results.append({"input": tc.name, **diff_output(cobol_out, modern_out)})\n    return results\n\nif __name__ == "__main__":\n    r = run_parallel_test("test_inputs/")\n    print(json.dumps(r, indent=2))'''
     return TestHarnessResponse(target_stack=target_stack, harness_code=harness, tier=tier)
+
+# ---------------------------------------------------------------------------
+# MCP 2026-07-28 wire - header-add migration (2026-10-08)
+# ---------------------------------------------------------------------------
+# stdio carries no HTTP headers, so Mcp-Method / Mcp-Name are not applicable to
+# this transport at runtime. When cobol-bridge-mcp is exposed over HTTP, route the ingress
+# through the vendored mcp2026_shim (ShimASGI): it validates Mcp-Method /
+# Mcp-Name, injects params._meta.protocolVersion = "2026-07-28" into every
+# request, strips Mcp-Session-Id and answers legacy initialize / server-discover
+# locally (the session header is never emitted - stateless wire).
+# Refs: MIGRATION_NOTE.md, MCP_2026_WIRE_MIGRATION_PLAN_2026-10-07.md (3) + (4).
+# ---------------------------------------------------------------------------
+
+
+def http_app():
+    """ASGI app for HTTP exposure, wrapped in the 2026-07-28 wire shim.
+
+    stdio (the run below) needs no shim; this is the enable path once the
+    server is fronted by an HTTP transport. Bodies are buffered, so responses
+    are requested in JSON mode rather than SSE.
+    """
+    from mcp2026_shim import WIRE_2026, ShimASGI, ShimConfig
+
+    return ShimASGI(
+        mcp.streamable_http_app(json_response=True),
+        ShimConfig(
+            protocol_version=WIRE_2026,
+            server_info={"name": "cobol-bridge-mcp", "version": "1.1.10"},
+        ),
+    )
+
 
 def main():
     mcp.run()
